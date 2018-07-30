@@ -68,7 +68,7 @@
           "description" : "maximum number of records to return",
           "required" : false,
           "type" : "integer",
-          "maximum" : 50.0,
+          "maximum" : 50,
           "minimum" : 0,
           "format" : "int32"
         } ],
@@ -141,7 +141,7 @@
           "description" : "maximum number of records to return",
           "required" : false,
           "type" : "integer",
-          "maximum" : 50.0,
+          "maximum" : 50,
           "minimum" : 0,
           "format" : "int32"
         } ],
@@ -152,6 +152,52 @@
               "type" : "array",
               "items" : {
                 "$ref" : "#/definitions/ProductOffering"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/productOfferingPrice" : {
+      "get" : {
+        "summary" : "searches productoffering prices",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId" : "searchProductOfferingPrices",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "searchString",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "number of records to skip for pagination",
+          "required" : false,
+          "type" : "integer",
+          "minimum" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "type" : "integer",
+          "maximum" : 50,
+          "minimum" : 0,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ProductOfferingPrice"
               }
             }
           },
@@ -202,7 +248,7 @@
         "lastUpdate" : {
           "type" : "string",
           "format" : "date-time",
-          "example" : "2016-08-29T09:12:33.000Z",
+          "example" : "2016-08-29T09:12:33Z",
           "title" : "Last update"
         },
         "lifecycleStatus" : {
@@ -218,7 +264,7 @@
         },
         "version" : {
           "type" : "string",
-          "example" : "1",
+          "example" : "1.0",
           "title" : "Version"
         },
         "@type" : {
@@ -293,8 +339,8 @@
             "valueTo" : "valueTo",
             "regex" : "regex",
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "valueType" : "valueType",
@@ -307,8 +353,8 @@
             "valueTo" : "valueTo",
             "regex" : "regex",
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "valueType" : "valueType",
@@ -317,8 +363,8 @@
             "valueFrom" : "valueFrom"
           } ],
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "@valueSchemaLocation" : "http://example.com/aeiou",
@@ -332,8 +378,8 @@
           "productSpecCharRelationship" : [ {
             "charSpecSeq" : 1,
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "name" : "name",
@@ -343,8 +389,8 @@
           }, {
             "charSpecSeq" : 1,
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "name" : "name",
@@ -362,8 +408,8 @@
             "valueTo" : "valueTo",
             "regex" : "regex",
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "valueType" : "valueType",
@@ -376,8 +422,8 @@
             "valueTo" : "valueTo",
             "regex" : "regex",
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "valueType" : "valueType",
@@ -386,8 +432,8 @@
             "valueFrom" : "valueFrom"
           } ],
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "@valueSchemaLocation" : "http://example.com/aeiou",
@@ -401,8 +447,8 @@
           "productSpecCharRelationship" : [ {
             "charSpecSeq" : 1,
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "name" : "name",
@@ -412,8 +458,8 @@
           }, {
             "charSpecSeq" : 1,
             "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33.000Z",
-              "endDateTime" : "2016-08-29T09:12:33.000Z"
+              "startDateTime" : "2016-08-29T09:12:33Z",
+              "endDateTime" : "2016-08-29T09:12:33Z"
             },
             "@type" : "@type",
             "name" : "name",
@@ -431,8 +477,8 @@
           "@schemaLocation" : "http://example.com/aeiou"
         },
         "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33.000Z",
-          "endDateTime" : "2016-08-29T09:12:33.000Z"
+          "startDateTime" : "2016-08-29T09:12:33Z",
+          "endDateTime" : "2016-08-29T09:12:33Z"
         },
         "@type" : "TariffSpecification",
         "resourceSpecification" : [ {
@@ -440,26 +486,26 @@
           "name" : "Server 4711",
           "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
           "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1"
+          "version" : "1.0"
         }, {
           "@referredType" : "ResourceSpecification",
           "name" : "Server 4711",
           "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
           "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1"
+          "version" : "1.0"
         } ],
         "serviceSpecification" : [ {
           "@referredType" : "ResourceSpecification# Added by API Auto Mocking Plugin",
           "name" : "Server 4711",
           "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
           "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1"
+          "version" : "1.0"
         }, {
           "@referredType" : "ResourceSpecification# Added by API Auto Mocking Plugin",
           "name" : "Server 4711",
           "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
           "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1"
+          "version" : "1.0"
         } ],
         "description" : "Description for the Widget Adapter",
         "productNumber" : "ABC1234",
@@ -467,8 +513,8 @@
           "@referredType" : "@referredType",
           "role" : "role",
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "name" : "name",
           "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
@@ -477,20 +523,20 @@
           "@referredType" : "@referredType",
           "role" : "role",
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "name" : "name",
           "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
           "href" : "http://example.com/aeiou"
         } ],
-        "version" : "1",
+        "version" : "1.0",
         "@baseType" : "ProductSpecification",
         "attachment" : [ {
           "@baseType" : "@baseType",
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "description" : "description",
@@ -502,8 +548,8 @@
         }, {
           "@baseType" : "@baseType",
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "description" : "description",
@@ -524,20 +570,20 @@
           "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
           "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
         } ],
-        "lastUpdate" : "2016-08-29T09:12:33.000Z",
+        "lastUpdate" : "2016-08-29T09:12:33Z",
         "name" : "Widget Adapter",
         "productSpecificationRelationship" : [ {
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
           "href" : "http://example.com/aeiou",
           "type" : "type"
         }, {
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
           "href" : "http://example.com/aeiou",
@@ -580,22 +626,58 @@
         "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
       }
     },
+    "ProductOfferingPrice" : {
+      "type" : "object",
+      "required" : [ "href", "id", "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "href" : {
+          "type" : "string",
+          "format" : "uri",
+          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Widget Adapter"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description for the Widget Adapter"
+        },
+        "version" : {
+          "type" : "string",
+          "example" : "2.0"
+        }
+      },
+      "description" : "The Product Offering resource represents entities that are orderable from the provider of the catalog, this resource includes pricing information.",
+      "example" : {
+        "name" : "Widget Adapter",
+        "description" : "Description for the Widget Adapter",
+        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "version" : "2.0"
+      }
+    },
     "TimePeriod" : {
       "properties" : {
         "startDateTime" : {
           "type" : "string",
           "format" : "date-time",
-          "example" : "2016-08-29T09:12:33.000Z"
+          "example" : "2016-08-29T09:12:33Z"
         },
         "endDateTime" : {
           "type" : "string",
           "format" : "date-time",
-          "example" : "2016-08-29T09:12:33.000Z"
+          "example" : "2016-08-29T09:12:33Z"
         }
       },
       "example" : {
-        "startDateTime" : "2016-08-29T09:12:33.000Z",
-        "endDateTime" : "2016-08-29T09:12:33.000Z"
+        "startDateTime" : "2016-08-29T09:12:33Z",
+        "endDateTime" : "2016-08-29T09:12:33Z"
       }
     },
     "TargetProductSchemaRef" : {
@@ -634,7 +716,7 @@
         },
         "version" : {
           "type" : "string",
-          "example" : "1"
+          "example" : "1.0"
         },
         "@referredType" : {
           "type" : "string",
@@ -647,7 +729,7 @@
         "name" : "Server 4711",
         "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
         "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "version" : "1"
+        "version" : "1.0"
       }
     },
     "ServiceSpecificationRef" : {
@@ -669,7 +751,7 @@
         },
         "version" : {
           "type" : "string",
-          "example" : "1"
+          "example" : "1.0"
         },
         "@referredType" : {
           "type" : "string",
@@ -682,7 +764,7 @@
         "name" : "Server 4711",
         "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
         "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "version" : "1"
+        "version" : "1.0"
       }
     },
     "BundledProductSpecification" : {
@@ -779,8 +861,8 @@
           "valueTo" : "valueTo",
           "regex" : "regex",
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "valueType" : "valueType",
@@ -793,8 +875,8 @@
           "valueTo" : "valueTo",
           "regex" : "regex",
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "valueType" : "valueType",
@@ -803,8 +885,8 @@
           "valueFrom" : "valueFrom"
         } ],
         "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33.000Z",
-          "endDateTime" : "2016-08-29T09:12:33.000Z"
+          "startDateTime" : "2016-08-29T09:12:33Z",
+          "endDateTime" : "2016-08-29T09:12:33Z"
         },
         "@type" : "@type",
         "@valueSchemaLocation" : "http://example.com/aeiou",
@@ -818,8 +900,8 @@
         "productSpecCharRelationship" : [ {
           "charSpecSeq" : 1,
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "name" : "name",
@@ -829,8 +911,8 @@
         }, {
           "charSpecSeq" : 1,
           "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33.000Z",
-            "endDateTime" : "2016-08-29T09:12:33.000Z"
+            "startDateTime" : "2016-08-29T09:12:33Z",
+            "endDateTime" : "2016-08-29T09:12:33Z"
           },
           "@type" : "@type",
           "name" : "name",
@@ -883,8 +965,8 @@
         "valueTo" : "valueTo",
         "regex" : "regex",
         "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33.000Z",
-          "endDateTime" : "2016-08-29T09:12:33.000Z"
+          "startDateTime" : "2016-08-29T09:12:33Z",
+          "endDateTime" : "2016-08-29T09:12:33Z"
         },
         "@type" : "@type",
         "valueType" : "valueType",
@@ -923,8 +1005,8 @@
       "example" : {
         "charSpecSeq" : 1,
         "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33.000Z",
-          "endDateTime" : "2016-08-29T09:12:33.000Z"
+          "startDateTime" : "2016-08-29T09:12:33Z",
+          "endDateTime" : "2016-08-29T09:12:33Z"
         },
         "@type" : "@type",
         "name" : "name",
@@ -952,8 +1034,8 @@
       },
       "example" : {
         "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33.000Z",
-          "endDateTime" : "2016-08-29T09:12:33.000Z"
+          "startDateTime" : "2016-08-29T09:12:33Z",
+          "endDateTime" : "2016-08-29T09:12:33Z"
         },
         "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
         "href" : "http://example.com/aeiou",
@@ -997,8 +1079,8 @@
       "example" : {
         "@baseType" : "@baseType",
         "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33.000Z",
-          "endDateTime" : "2016-08-29T09:12:33.000Z"
+          "startDateTime" : "2016-08-29T09:12:33Z",
+          "endDateTime" : "2016-08-29T09:12:33Z"
         },
         "@type" : "@type",
         "description" : "description",
@@ -1033,13 +1115,16 @@
           "type" : "string"
         }
       },
+      "externalDocs" : {
+        "url" : "http://localhost:8080/partyManagement/v2"
+      },
       "title" : "Related party reference",
       "example" : {
         "@referredType" : "@referredType",
         "role" : "role",
         "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33.000Z",
-          "endDateTime" : "2016-08-29T09:12:33.000Z"
+          "startDateTime" : "2016-08-29T09:12:33Z",
+          "endDateTime" : "2016-08-29T09:12:33Z"
         },
         "name" : "name",
         "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
