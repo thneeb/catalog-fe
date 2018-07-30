@@ -1,0 +1,418 @@
+swagger: '2.0'
+info:
+  description: This is a description of the Product Catalog API from TMForum in Version 17.5
+  version: 17.5.0
+  title: Product Catalog API
+  # put the contact info for your development or API team
+  contact:
+    email: thomas.neeb@nttdata.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: all
+  description: Access is free for all
+
+paths:
+  /productSpecification/{id}:
+    get:
+      summary: retrieves the requested item
+      operationId: getProductSpecificationById
+      parameters:
+      - in: path
+        name: id
+        type: string
+        format: uuid
+        required: true
+      produces:
+      - application/json
+      responses:
+        200:
+          $ref: '#/definitions/ProductSpecification'
+        404:
+          description: requested item could not be found
+  /productSpecification:
+    get:
+      summary: searches product specifications
+      operationId: searchProductSpecification
+      description: |
+        By passing in the appropriate options, you can search for
+        available inventory in the system
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: searchString
+        description: pass an optional search string for looking up inventory
+        required: false
+        type: string
+      - in: query
+        name: skip
+        description: number of records to skip for pagination
+        type: integer
+        format: int32
+        minimum: 0
+      - in: query
+        name: limit
+        description: maximum number of records to return
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 50
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProductSpecification'
+        400:
+          description: bad input parameter
+    post:
+      summary: adds an inventory item
+      operationId: addProductSpecification
+      description: Adds an item to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: productSpecification
+        description: Product Specification to add
+        schema:
+          $ref: '#/definitions/ProductSpecification'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+definitions:
+  ProductSpecification:
+    type: object
+    required:
+    - id
+    - href
+    - name
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      href:
+        type: string
+        format: uri
+        example: https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851
+      name:
+        type: string
+        example: Widget Adapter
+      description:
+        type: string
+        example: Description for the Widget Adapter
+      brand:
+        type: string
+        example: ALDItalk
+      isBundled:
+        type: boolean
+        example: false
+      lastUpdate:
+        type: string
+        format: date-time
+        example: 2016-08-29T09:12:33Z
+      lifecycleStatus:
+        $ref: '#/definitions/LifecycleStatus'
+      productNumber:
+        type: string
+        example: ABC1234
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+      version:
+        type: string
+        example: 1.0
+      "@type":
+        type: string
+        example: TariffSpecification
+      "@baseType":
+        type: string
+        example: ProductSpecification
+      "@schemaLocation":
+        type: string
+        format: uri
+        example: https://tmforum.nttdata.com/schemas/Tariff.yml
+      targetProductSchema:
+        $ref: '#/definitions/TargetProductSchemaRef'
+      resourceSpecification:
+        type: array
+        items: {
+          $ref: '#/definitions/ResouceSpecificationRef'
+        }
+      serviceSpecification:
+        type: array
+        items: {
+          $ref: '#/definitions/ServiceSpecificationRef'
+        }
+      bundledProductSpecification:
+        type: array
+        items: {
+          $ref: '#/definitions/BundledProductSpecification'
+        }
+      productSpecCharacteristic:
+        type: array
+        items: {
+          $ref: '#/definitions/ProductSpecCharacteristic'
+        }
+      productSpecificationRelationship:
+        type: array
+        items: {
+          $ref: '#/definitions/ProductSpecificationRelationship'
+        }
+      attachment:
+        type: array
+        items: {
+          $ref: '#/definitions/Attachment'
+        }
+      relatedParty:
+        type: array
+        items: {
+          $ref: '#/definitions/RelatedPartyRef'
+        }
+  TimePeriod:
+    properties:
+      validForm:
+        type: string
+        format: date-time
+        example: 2016-08-29T09:12:33Z
+      validTo:
+        type: string
+        format: date-time
+        example: 2016-08-29T09:12:33Z
+  TargetProductSchemaRef:
+    description: Reference to the schema information which will appear in Product Inventory when the product becomes installed
+    required: 
+      - "@referredType"
+      - "@schemaLocation"
+    properties:
+      "@referredType":
+        type: string
+      "@schemaLocation":
+        type: string
+        format: uri
+  ResouceSpecificationRef:
+    description: References to the resouce specifications which are installed in Resource Inventory, when this product is installed
+    required: 
+      - id
+      - href
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      href:
+        type: string
+        format: uri
+        example: https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851
+      name:
+        type: string
+        example: Server 4711
+      version:
+        type: string
+        example: 1.0
+      "@referredType":
+        type: string
+        example: ResourceSpecification
+  ServiceSpecificationRef:
+    description: References to the service specifications which are installed in Service Inventory, when this product is installed
+    required: 
+      - id
+      - href
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      href:
+        type: string
+        format: uri
+        example: https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851
+      name:
+        type: string
+        example: Server 4711
+      version:
+        type: string
+        example: 1.0
+      "@referredType":
+        type: string
+        example: ResourceSpecification# Added by API Auto Mocking Plugin
+  BundledProductSpecification:
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      href:
+        type: string
+        format: uri
+        example: https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851
+      lifecycleStatus:
+        $ref: '#/definitions/LifecycleStatus'
+      name:
+        type: string
+        example: Server 4711
+  ProductSpecCharacteristic:
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      valueType:
+        type: string
+      configurable:
+        type: boolean
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+      "@type":
+        type: string
+      "@schemaLocation":
+        type: string
+        format: uri
+      "@valueSchemaLocation":
+        type: string
+        format: uri
+      minCardinality:
+        type: integer
+        format: uint
+        minimum: 0
+      maxCardinality:
+        type: integer
+        format: unit
+        minimum: 1
+      isUnique:
+        type: boolean
+      regex:
+        type: string
+      extensible:
+        type: boolean
+      productSpecCharacteristic:
+        type: array
+        items: {
+          $ref: '#/definitions/ProductSpecCharacteristicValue'
+        }
+      productSpecCharRelationship:
+        type: array
+        items: {
+          $ref: '#/definitions/ProductSpecCharRelationship'
+        }
+  ProductSpecCharacteristicValue:
+    properties:
+      isDefault:
+        type: boolean
+      unitOfMeature:
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+      valueFrom:
+        type: string
+      valueTo:
+        type: string
+      valueType:
+        type: string
+      rangeInterval:
+        type: string
+      regex: 
+        type: string
+      "@type":
+        type: string
+      "@schemaLocation":
+        type: string
+        format: uri
+  ProductSpecCharRelationship:
+    properties:
+      type:
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+      charSpecSeq:
+        type: integer
+        format: uint
+      id:
+        type: string
+        format: uuid
+      href:
+        type: string
+        format: uri
+      name:
+        type: string
+      "@type":
+        type: string
+  ProductSpecificationRelationship:
+    properties:
+      id:
+        type: string
+        format: uuid
+      href:
+        type: string
+        format: uri
+      type:
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+  Attachment:
+    properties:
+      id:
+        type: string
+        format: uuid
+      href:
+        type: string
+        format: uri
+      description:
+        type: string
+      type:
+        type: string
+      url:
+        type: string
+        format: uri
+      mimeType:
+        type: string
+        format: mimeType
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+      "@type":
+        type: string
+      "@baseType":
+        type: string
+  RelatedPartyRef:
+    properties:
+      id:
+        type: string
+        format: uuid
+      href:
+        type: string
+        format: uri
+      role:
+        type: string
+      name:
+        type: string
+      validFor:
+        $ref: '#/definitions/TimePeriod'
+      "@referredType":
+        type: string
+  LifecycleStatus:
+    type: string
+    enum:
+    - In study
+    - In design
+    - In test
+    - Active
+    - Launched
+    - Retired
+    - Obsolet
+    - Rejected
+host: virtserver.swaggerhub.com
+basePath: /nttdata9/ProductCatalog/1.0.0
+schemes:
+ - https
