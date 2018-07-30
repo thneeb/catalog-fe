@@ -11,6 +11,10 @@ module.exports = {
       '/catalogManagement/v2': {
         target: 'http://localhost:9999/',
         changeOrigin: true
+      },
+      '/partyManagement/v2': {
+        target: 'http://localhost:8085/',
+        changeOrigin: true
       }
     }
   }

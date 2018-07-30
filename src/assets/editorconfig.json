@@ -1,0 +1,17 @@
+{
+    "references": [
+        {
+            "definition": "RelatedPartyRef",
+            "targets": [
+                {
+                    "topic": "Individual",
+                    "url": "/partyManagement/V2/individual"
+                },
+                {
+                    "topic": "Organization",
+                    "url": "/partyManagement/V2/organization"
+                }
+            ]
+        }
+    ]
+}
