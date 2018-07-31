@@ -13,7 +13,7 @@
     }
   },
   "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/nttdata9/ProductCatalog/1.0.0",
+  "basePath" : "/nttdata9/ProductCatalog/17.5.0",
   "tags" : [ {
     "name" : "all",
     "description" : "Access is free for all"
