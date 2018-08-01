@@ -97,7 +97,7 @@
           "in" : "body",
           "name" : "productSpecification",
           "description" : "Product Specification to add",
-          "required" : false,
+          "required" : true,
           "schema" : {
             "$ref" : "#/definitions/ProductSpecification"
           }
@@ -211,19 +211,21 @@
   "definitions" : {
     "ProductSpecification" : {
       "type" : "object",
-      "required" : [ "href", "id", "name" ],
+      "required" : [ "name" ],
       "properties" : {
         "id" : {
           "type" : "string",
           "format" : "uuid",
           "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "title" : "ID"
+          "title" : "ID",
+          "readOnly" : true
         },
         "href" : {
           "type" : "string",
           "format" : "uri",
           "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "title" : "HREF"
+          "title" : "HREF",
+          "readOnly" : true
         },
         "name" : {
           "type" : "string",
