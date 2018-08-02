@@ -35,7 +35,10 @@
         } ],
         "responses" : {
           "200" : {
-            "$ref" : "#/definitions/ProductSpecification_Read"
+            "description" : "returns the requested resource",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSpecification_Read"
+            }
           },
           "404" : {
             "description" : "requested item could not be found"
@@ -64,7 +67,10 @@
         } ],
         "responses" : {
           "200" : {
-            "$ref" : "#/definitions/ProductSpecification_Read"
+            "description" : "returns the updated resource",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSpecification_Read"
+            }
           },
           "404" : {
             "description" : "requested item could not be found"
@@ -134,7 +140,10 @@
         } ],
         "responses" : {
           "201" : {
-            "description" : "item created"
+            "description" : "item created",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSpecification_Read"
+            }
           },
           "400" : {
             "description" : "invalid input, object invalid"
