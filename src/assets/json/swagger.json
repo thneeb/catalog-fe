@@ -181,12 +181,39 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/ProductOffering"
+                "$ref" : "#/definitions/ProductOffering_Read"
               }
             }
           },
           "400" : {
             "description" : "bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "summary" : "adds a product offering",
+        "description" : "Adds an item to the system",
+        "operationId" : "addProductOffering",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "productOffering",
+          "description" : "Product Specification to add",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ProductOffering_Create"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
           }
         }
       }
@@ -253,6 +280,7 @@
       "allOf" : [ {
         "$ref" : "#/definitions/ProductSpecification"
       }, {
+        "required" : [ "href", "id" ],
         "properties" : {
           "id" : {
             "type" : "string",
@@ -380,20 +408,38 @@
       },
       "description" : "ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role."
     },
+    "ProductOffering_Create" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/ProductOffering"
+      }, { } ]
+    },
+    "ProductOffering_Update" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/ProductOffering"
+      }, { } ]
+    },
+    "ProductOffering_Read" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/ProductOffering"
+      }, {
+        "required" : [ "href", "id" ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "href" : {
+            "type" : "string",
+            "format" : "uri",
+            "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
+          }
+        }
+      } ]
+    },
     "ProductOffering" : {
       "type" : "object",
-      "required" : [ "href", "id", "name" ],
       "properties" : {
-        "id" : {
-          "type" : "string",
-          "format" : "uuid",
-          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
-        },
-        "href" : {
-          "type" : "string",
-          "format" : "uri",
-          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
-        },
         "name" : {
           "type" : "string",
           "example" : "Widget Adapter"
@@ -403,13 +449,7 @@
           "example" : "Description for the Widget Adapter"
         }
       },
-      "description" : "The Product Offering resource represents entities that are orderable from the provider of the catalog, this resource includes pricing information.",
-      "example" : {
-        "name" : "Widget Adapter",
-        "description" : "Description for the Widget Adapter",
-        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
-      }
+      "description" : "The Product Offering resource represents entities that are orderable from the provider of the catalog, this resource includes pricing information."
     },
     "ProductOfferingPrice" : {
       "type" : "object",
@@ -679,14 +719,17 @@
       "properties" : {
         "id" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "href" : {
           "type" : "string",
-          "format" : "uri"
+          "format" : "uri",
+          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "type" : {
-          "type" : "string"
+          "type" : "string",
+          "example" : "contains"
         },
         "validFor" : {
           "$ref" : "#/definitions/TimePeriod"
@@ -694,14 +737,17 @@
       }
     },
     "Attachment" : {
+      "type" : "object",
       "properties" : {
         "id" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "href" : {
           "type" : "string",
-          "format" : "uri"
+          "format" : "uri",
+          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "description" : {
           "type" : "string"
@@ -726,24 +772,29 @@
         "@baseType" : {
           "type" : "string"
         }
-      }
+      },
+      "title" : "Attachment"
     },
     "RelatedPartyRef" : {
       "type" : "object",
       "properties" : {
         "id" : {
           "type" : "string",
-          "format" : "uuid"
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "href" : {
           "type" : "string",
-          "format" : "uri"
+          "format" : "uri",
+          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "role" : {
-          "type" : "string"
+          "type" : "string",
+          "example" : "Responsible"
         },
         "name" : {
-          "type" : "string"
+          "type" : "string",
+          "example" : "John Doe"
         },
         "validFor" : {
           "$ref" : "#/definitions/TimePeriod"
@@ -752,14 +803,12 @@
           "type" : "string"
         }
       },
-      "externalDocs" : {
-        "url" : "http://localhost:8080/partyManagement/v2"
-      },
       "title" : "Related party reference"
     },
     "LifecycleStatus" : {
       "type" : "string",
       "title" : "Lifecycle Status",
+      "example" : "Active",
       "enum" : [ "In study", "In design", "In test", "Active", "Launched", "Retired", "Obsolet", "Rejected" ]
     }
   }
