@@ -24,6 +24,7 @@
       "get" : {
         "summary" : "retrieves the requested item",
         "operationId" : "getProductSpecificationById",
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -34,7 +35,36 @@
         } ],
         "responses" : {
           "200" : {
-            "$ref" : "#/definitions/ProductSpecification"
+            "$ref" : "#/definitions/ProductSpecification_Read"
+          },
+          "404" : {
+            "description" : "requested item could not be found"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "updates an existing product specification",
+        "operationId" : "updateProductSpecification",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }, {
+          "in" : "body",
+          "name" : "productSpecification",
+          "description" : "Product Specification to add",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ProductSpecification_Update"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "$ref" : "#/definitions/ProductSpecification_Read"
           },
           "404" : {
             "description" : "requested item could not be found"
@@ -78,7 +108,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/ProductSpecification"
+                "$ref" : "#/definitions/ProductSpecification_Read"
               }
             }
           },
@@ -99,7 +129,7 @@
           "description" : "Product Specification to add",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/ProductSpecification"
+            "$ref" : "#/definitions/ProductSpecification_Create"
           }
         } ],
         "responses" : {
@@ -209,24 +239,41 @@
     }
   },
   "definitions" : {
+    "ProductSpecification_Create" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/ProductSpecification"
+      }, { } ]
+    },
+    "ProductSpecification_Update" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/ProductSpecification"
+      }, { } ]
+    },
+    "ProductSpecification_Read" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/ProductSpecification"
+      }, {
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+            "title" : "ID",
+            "readOnly" : true
+          },
+          "href" : {
+            "type" : "string",
+            "format" : "uri",
+            "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
+            "title" : "HREF",
+            "readOnly" : true
+          }
+        }
+      } ]
+    },
     "ProductSpecification" : {
       "type" : "object",
-      "required" : [ "name" ],
       "properties" : {
-        "id" : {
-          "type" : "string",
-          "format" : "uuid",
-          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "title" : "ID",
-          "readOnly" : true
-        },
-        "href" : {
-          "type" : "string",
-          "format" : "uri",
-          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "title" : "HREF",
-          "readOnly" : true
-        },
         "name" : {
           "type" : "string",
           "example" : "Widget Adapter",
@@ -331,271 +378,7 @@
           }
         }
       },
-      "description" : "ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.",
-      "example" : {
-        "isBundle" : false,
-        "productSpecCharacteristic" : [ {
-          "productSpecCharacteristic" : [ {
-            "rangeInterval" : "rangeInterval",
-            "isDefault" : true,
-            "valueTo" : "valueTo",
-            "regex" : "regex",
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "valueType" : "valueType",
-            "unitOfMeature" : "unitOfMeature",
-            "@schemaLocation" : "http://example.com/aeiou",
-            "valueFrom" : "valueFrom"
-          }, {
-            "rangeInterval" : "rangeInterval",
-            "isDefault" : true,
-            "valueTo" : "valueTo",
-            "regex" : "regex",
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "valueType" : "valueType",
-            "unitOfMeature" : "unitOfMeature",
-            "@schemaLocation" : "http://example.com/aeiou",
-            "valueFrom" : "valueFrom"
-          } ],
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "@valueSchemaLocation" : "http://example.com/aeiou",
-          "isUnique" : true,
-          "description" : "description",
-          "maxCardinality" : 1,
-          "minCardinality" : 0,
-          "regex" : "regex",
-          "valueType" : "valueType",
-          "name" : "name",
-          "productSpecCharRelationship" : [ {
-            "charSpecSeq" : 1,
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "name" : "name",
-            "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-            "href" : "http://example.com/aeiou",
-            "type" : "type"
-          }, {
-            "charSpecSeq" : 1,
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "name" : "name",
-            "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-            "href" : "http://example.com/aeiou",
-            "type" : "type"
-          } ],
-          "@schemaLocation" : "http://example.com/aeiou",
-          "extensible" : true,
-          "configurable" : true
-        }, {
-          "productSpecCharacteristic" : [ {
-            "rangeInterval" : "rangeInterval",
-            "isDefault" : true,
-            "valueTo" : "valueTo",
-            "regex" : "regex",
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "valueType" : "valueType",
-            "unitOfMeature" : "unitOfMeature",
-            "@schemaLocation" : "http://example.com/aeiou",
-            "valueFrom" : "valueFrom"
-          }, {
-            "rangeInterval" : "rangeInterval",
-            "isDefault" : true,
-            "valueTo" : "valueTo",
-            "regex" : "regex",
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "valueType" : "valueType",
-            "unitOfMeature" : "unitOfMeature",
-            "@schemaLocation" : "http://example.com/aeiou",
-            "valueFrom" : "valueFrom"
-          } ],
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "@valueSchemaLocation" : "http://example.com/aeiou",
-          "isUnique" : true,
-          "description" : "description",
-          "maxCardinality" : 1,
-          "minCardinality" : 0,
-          "regex" : "regex",
-          "valueType" : "valueType",
-          "name" : "name",
-          "productSpecCharRelationship" : [ {
-            "charSpecSeq" : 1,
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "name" : "name",
-            "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-            "href" : "http://example.com/aeiou",
-            "type" : "type"
-          }, {
-            "charSpecSeq" : 1,
-            "validFor" : {
-              "startDateTime" : "2016-08-29T09:12:33Z",
-              "endDateTime" : "2016-08-29T09:12:33Z"
-            },
-            "@type" : "@type",
-            "name" : "name",
-            "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-            "href" : "http://example.com/aeiou",
-            "type" : "type"
-          } ],
-          "@schemaLocation" : "http://example.com/aeiou",
-          "extensible" : true,
-          "configurable" : true
-        } ],
-        "lifecycleStatus" : { },
-        "targetProductSchema" : {
-          "@referredType" : "@referredType",
-          "@schemaLocation" : "http://example.com/aeiou"
-        },
-        "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33Z",
-          "endDateTime" : "2016-08-29T09:12:33Z"
-        },
-        "@type" : "TariffSpecification",
-        "resourceSpecification" : [ {
-          "@referredType" : "ResourceSpecification",
-          "name" : "Server 4711",
-          "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1.0"
-        }, {
-          "@referredType" : "ResourceSpecification",
-          "name" : "Server 4711",
-          "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1.0"
-        } ],
-        "serviceSpecification" : [ {
-          "@referredType" : "ResourceSpecification# Added by API Auto Mocking Plugin",
-          "name" : "Server 4711",
-          "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1.0"
-        }, {
-          "@referredType" : "ResourceSpecification# Added by API Auto Mocking Plugin",
-          "name" : "Server 4711",
-          "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "version" : "1.0"
-        } ],
-        "description" : "Description for the Widget Adapter",
-        "productNumber" : "ABC1234",
-        "relatedParty" : [ {
-          "@referredType" : "@referredType",
-          "role" : "role",
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "name" : "name",
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou"
-        }, {
-          "@referredType" : "@referredType",
-          "role" : "role",
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "name" : "name",
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou"
-        } ],
-        "version" : "1.0",
-        "@baseType" : "ProductSpecification",
-        "attachment" : [ {
-          "@baseType" : "@baseType",
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "description" : "description",
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou",
-          "mimeType" : "mimeType",
-          "type" : "type",
-          "url" : "http://example.com/aeiou"
-        }, {
-          "@baseType" : "@baseType",
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "description" : "description",
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou",
-          "mimeType" : "mimeType",
-          "type" : "type",
-          "url" : "http://example.com/aeiou"
-        } ],
-        "bundledProductSpecification" : [ {
-          "lifecycleStatus" : null,
-          "name" : "Server 4711",
-          "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
-        }, {
-          "lifecycleStatus" : null,
-          "name" : "Server 4711",
-          "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
-        } ],
-        "lastUpdate" : "2016-08-29T09:12:33Z",
-        "name" : "Widget Adapter",
-        "productSpecificationRelationship" : [ {
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou",
-          "type" : "type"
-        }, {
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou",
-          "type" : "type"
-        } ],
-        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "@schemaLocation" : "https://tmforum.nttdata.com/schemas/Tariff.yml",
-        "brand" : "ALDItalk"
-      }
+      "description" : "ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role."
     },
     "ProductOffering" : {
       "type" : "object",
@@ -676,10 +459,6 @@
           "format" : "date-time",
           "example" : "2016-08-29T09:12:33Z"
         }
-      },
-      "example" : {
-        "startDateTime" : "2016-08-29T09:12:33Z",
-        "endDateTime" : "2016-08-29T09:12:33Z"
       }
     },
     "TargetProductSchemaRef" : {
@@ -693,11 +472,7 @@
           "format" : "uri"
         }
       },
-      "description" : "Reference to the schema information which will appear in Product Inventory when the product becomes installed",
-      "example" : {
-        "@referredType" : "@referredType",
-        "@schemaLocation" : "http://example.com/aeiou"
-      }
+      "description" : "Reference to the schema information which will appear in Product Inventory when the product becomes installed"
     },
     "ResouceSpecificationRef" : {
       "required" : [ "href", "id" ],
@@ -725,14 +500,7 @@
           "example" : "ResourceSpecification"
         }
       },
-      "description" : "References to the resouce specifications which are installed in Resource Inventory, when this product is installed",
-      "example" : {
-        "@referredType" : "ResourceSpecification",
-        "name" : "Server 4711",
-        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "version" : "1.0"
-      }
+      "description" : "References to the resouce specifications which are installed in Resource Inventory, when this product is installed"
     },
     "ServiceSpecificationRef" : {
       "required" : [ "href", "id" ],
@@ -760,14 +528,7 @@
           "example" : "ResourceSpecification# Added by API Auto Mocking Plugin"
         }
       },
-      "description" : "References to the service specifications which are installed in Service Inventory, when this product is installed",
-      "example" : {
-        "@referredType" : "ResourceSpecification# Added by API Auto Mocking Plugin",
-        "name" : "Server 4711",
-        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "href" : "https://tmforum.nttdata.com/resourceSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "version" : "1.0"
-      }
+      "description" : "References to the service specifications which are installed in Service Inventory, when this product is installed"
     },
     "BundledProductSpecification" : {
       "properties" : {
@@ -788,12 +549,6 @@
           "type" : "string",
           "example" : "Server 4711"
         }
-      },
-      "example" : {
-        "lifecycleStatus" : null,
-        "name" : "Server 4711",
-        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
       }
     },
     "ProductSpecCharacteristic" : {
@@ -855,76 +610,6 @@
             "$ref" : "#/definitions/ProductSpecCharRelationship"
           }
         }
-      },
-      "example" : {
-        "productSpecCharacteristic" : [ {
-          "rangeInterval" : "rangeInterval",
-          "isDefault" : true,
-          "valueTo" : "valueTo",
-          "regex" : "regex",
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "valueType" : "valueType",
-          "unitOfMeature" : "unitOfMeature",
-          "@schemaLocation" : "http://example.com/aeiou",
-          "valueFrom" : "valueFrom"
-        }, {
-          "rangeInterval" : "rangeInterval",
-          "isDefault" : true,
-          "valueTo" : "valueTo",
-          "regex" : "regex",
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "valueType" : "valueType",
-          "unitOfMeature" : "unitOfMeature",
-          "@schemaLocation" : "http://example.com/aeiou",
-          "valueFrom" : "valueFrom"
-        } ],
-        "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33Z",
-          "endDateTime" : "2016-08-29T09:12:33Z"
-        },
-        "@type" : "@type",
-        "@valueSchemaLocation" : "http://example.com/aeiou",
-        "isUnique" : true,
-        "description" : "description",
-        "maxCardinality" : 1,
-        "minCardinality" : 0,
-        "regex" : "regex",
-        "valueType" : "valueType",
-        "name" : "name",
-        "productSpecCharRelationship" : [ {
-          "charSpecSeq" : 1,
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "name" : "name",
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou",
-          "type" : "type"
-        }, {
-          "charSpecSeq" : 1,
-          "validFor" : {
-            "startDateTime" : "2016-08-29T09:12:33Z",
-            "endDateTime" : "2016-08-29T09:12:33Z"
-          },
-          "@type" : "@type",
-          "name" : "name",
-          "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-          "href" : "http://example.com/aeiou",
-          "type" : "type"
-        } ],
-        "@schemaLocation" : "http://example.com/aeiou",
-        "extensible" : true,
-        "configurable" : true
       }
     },
     "ProductSpecCharacteristicValue" : {
@@ -960,21 +645,6 @@
           "type" : "string",
           "format" : "uri"
         }
-      },
-      "example" : {
-        "rangeInterval" : "rangeInterval",
-        "isDefault" : true,
-        "valueTo" : "valueTo",
-        "regex" : "regex",
-        "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33Z",
-          "endDateTime" : "2016-08-29T09:12:33Z"
-        },
-        "@type" : "@type",
-        "valueType" : "valueType",
-        "unitOfMeature" : "unitOfMeature",
-        "@schemaLocation" : "http://example.com/aeiou",
-        "valueFrom" : "valueFrom"
       }
     },
     "ProductSpecCharRelationship" : {
@@ -1003,18 +673,6 @@
         "@type" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "charSpecSeq" : 1,
-        "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33Z",
-          "endDateTime" : "2016-08-29T09:12:33Z"
-        },
-        "@type" : "@type",
-        "name" : "name",
-        "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-        "href" : "http://example.com/aeiou",
-        "type" : "type"
       }
     },
     "ProductSpecificationRelationship" : {
@@ -1033,15 +691,6 @@
         "validFor" : {
           "$ref" : "#/definitions/TimePeriod"
         }
-      },
-      "example" : {
-        "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33Z",
-          "endDateTime" : "2016-08-29T09:12:33Z"
-        },
-        "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-        "href" : "http://example.com/aeiou",
-        "type" : "type"
       }
     },
     "Attachment" : {
@@ -1077,20 +726,6 @@
         "@baseType" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "@baseType" : "@baseType",
-        "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33Z",
-          "endDateTime" : "2016-08-29T09:12:33Z"
-        },
-        "@type" : "@type",
-        "description" : "description",
-        "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-        "href" : "http://example.com/aeiou",
-        "mimeType" : "mimeType",
-        "type" : "type",
-        "url" : "http://example.com/aeiou"
       }
     },
     "RelatedPartyRef" : {
@@ -1120,18 +755,7 @@
       "externalDocs" : {
         "url" : "http://localhost:8080/partyManagement/v2"
       },
-      "title" : "Related party reference",
-      "example" : {
-        "@referredType" : "@referredType",
-        "role" : "role",
-        "validFor" : {
-          "startDateTime" : "2016-08-29T09:12:33Z",
-          "endDateTime" : "2016-08-29T09:12:33Z"
-        },
-        "name" : "name",
-        "id" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-        "href" : "http://example.com/aeiou"
-      }
+      "title" : "Related party reference"
     },
     "LifecycleStatus" : {
       "type" : "string",
