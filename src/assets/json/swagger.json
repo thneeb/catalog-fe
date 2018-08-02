@@ -301,6 +301,7 @@
     },
     "ProductSpecification" : {
       "type" : "object",
+      "required" : [ "name" ],
       "properties" : {
         "name" : {
           "type" : "string",
@@ -439,6 +440,7 @@
     },
     "ProductOffering" : {
       "type" : "object",
+      "required" : [ "name" ],
       "properties" : {
         "name" : {
           "type" : "string",
@@ -447,6 +449,18 @@
         "description" : {
           "type" : "string",
           "example" : "Description for the Widget Adapter"
+        },
+        "isBundle" : {
+          "type" : "boolean"
+        },
+        "productSpecification" : {
+          "$ref" : "#/definitions/ProductSpecificationRef"
+        },
+        "bundledProductOffering" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/BundledProductOffering"
+          }
         }
       },
       "description" : "The Product Offering resource represents entities that are orderable from the provider of the catalog, this resource includes pricing information."
@@ -485,6 +499,42 @@
         "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
         "href" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851",
         "version" : "2.0"
+      }
+    },
+    "ProductSpecificationRef" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "href" : {
+          "type" : "string",
+          "format" : "uri",
+          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Widget Adapter"
+        }
+      }
+    },
+    "BundledProductOffering" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "href" : {
+          "type" : "string",
+          "format" : "uri",
+          "example" : "https://tmforum.nttdata.com/productSpecification/d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Widget Adapter"
+        }
       }
     },
     "TimePeriod" : {
